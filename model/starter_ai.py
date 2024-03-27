@@ -1,9 +1,11 @@
 from threading import Thread
 from time import sleep
 import json
-
+import sys
 import plyer
 from classifier import is_bad_posture, posture_checker
+from ui.NotificationDialog import NotificationDialog
+from PyQt5.QtWidgets import *
 
 cur_loop_thread = None
 is_started = False
@@ -39,11 +41,12 @@ def classify_loop():
                         title="Hello, your posture is bad now!", message="Improve it"
                     )
                 else:
-                    notif_with_plyer(
-                        title="Hello, your posture is bad now!", message="Improve it"
-                    )
-            else:
-                print("good")
+                    app = QApplication(sys.argv)
+                    form = NotificationDialog()
+                    form.show()
+                    app.exec_()
+        else:
+            print("good")
             sleep(0.2)
     except Exception as e:
         print("Error in classifying loop:", e)
