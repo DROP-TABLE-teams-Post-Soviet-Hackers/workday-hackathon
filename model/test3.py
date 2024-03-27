@@ -1,6 +1,3 @@
-from time import sleep
-
-import cv2
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
 import numpy as np
@@ -42,9 +39,5 @@ class_name = class_names[index]
 confidence_score = prediction[0][index]
 
 # Print prediction and confidence score
-
-
-print(class_name)
 print("Class:", class_name[2:], end="")
 print("Confidence Score:", confidence_score)
-
