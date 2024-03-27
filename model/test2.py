@@ -1,3 +1,4 @@
+from threading import Thread
 from time import sleep
 
 import cv2
@@ -49,7 +50,7 @@ def get_score(filename = "image.png"):
     return (class_name, confidence_score)
 
 
-def main():
+def posture_checker():
     filename = "image.png"
     while True:
         try:
@@ -72,7 +73,7 @@ def main():
 
 
 if __name__=='__main__':
-    main()
+    posture_checker()
 
 # closing the windows that are opened
 cv2.destroyAllWindows()

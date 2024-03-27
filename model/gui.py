@@ -1,6 +1,7 @@
 import random
 import sys
-
+from threading import Thread
+from test2 import posture_checker
 from classifier import is_bad_posture
 from PySide6 import QtCore, QtGui, QtWidgets
 
