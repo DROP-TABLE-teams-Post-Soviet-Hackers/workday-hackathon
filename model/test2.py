@@ -21,22 +21,17 @@ class_names = open("labels.txt", "r").readlines()
 data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 cam = cv2.VideoCapture(0)
 
-while True:
 
-    result, image = cam.read()
+def get_score(filename = "image.png"):
 
-    cv2.imshow("image", image)
-
-    cv2.imwrite("image.png", image)
-
-    image = Image.open("image.png").convert("RGB")
+    image_to_process = Image.open("image.png").convert("RGB")
 
     # resizing the image to be at least 224x224 and then cropping from the center
     size = (224, 224)
-    image = ImageOps.fit(image, size, Image.LANCZOS)
+    image_to_process = ImageOps.fit(image_to_process, size, Image.LANCZOS)
 
     # turn the image into a numpy array
-    image_array = np.asarray(image)
+    image_array = np.asarray(image_to_process)
 
     # Normalize the image
     normalized_image_array = (image_array.astype(np.float32) / 127.5) - 1
@@ -50,17 +45,35 @@ while True:
     class_name = class_names[index]
     confidence_score = prediction[0][index]
 
-    if is_bad_posture:
-        print("Send notification")
 
-    print("Class:", class_name[2:], end="")
-    print("Confidence Score:", confidence_score)
-
-    if cv2.waitKey(1) == ord("q"):
-        break
+    return (class_name, confidence_score)
 
 
-cam.release()
+def main():
+    filename = "image.png"
+    while True:
+        try:
+            result, image = cam.read()
+
+            cv2.imshow("image", image)
+
+            cv2.imwrite(filename, image)
+
+            class_name, confidence_score = get_score(filename)
+
+            print("Class:", class_name[2:], end="")
+            print("Confidence Score:", confidence_score)
+
+
+        except KeyboardInterrupt:
+            cam.release()
+            cv2.destroyAllWindows()
+
+
+
+if __name__=='__main__':
+    main()
 
 # closing the windows that are opened
 cv2.destroyAllWindows()
+

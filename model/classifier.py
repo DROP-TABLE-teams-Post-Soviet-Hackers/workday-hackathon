@@ -1,5 +1,3 @@
-import threading
-
 import cv2
 import numpy as np
 from keras.models import load_model  # TensorFlow is required for Keras to work
@@ -9,7 +7,7 @@ from PIL import Image, ImageOps  # Install pillow instead of PIL
 np.set_printoptions(suppress=True)
 
 # Load the model
-model = load_model("keras_Model.h5", compile=False)
+model = load_model("keras_model.h5", compile=False)
 
 # Load the labels
 class_names = open("labels.txt", "r").readlines()
