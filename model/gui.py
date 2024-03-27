@@ -5,6 +5,7 @@ from test2 import posture_checker
 from classifier import is_bad_posture
 from PySide6 import QtCore, QtGui, QtWidgets
 from starter_ai import start, stop
+from loader import event
 
 
 class MyWidget(QtWidgets.QWidget):
@@ -34,8 +35,9 @@ class MyWidget(QtWidgets.QWidget):
         if self.start_button.isChecked():
             start()
 
-    def check_stop_button(self) -> None:
+    def check_stop_button(self)-> None:
         if self.stop_button.isChecked():
+            event.set()
             stop()
 
 

@@ -1,8 +1,9 @@
 from threading import Thread
 from classifier import is_bad_posture
 from time import sleep
+from test2 import posture_checker
 
-cur_loop_thread = None
+cur_loop_thread : Thread = None
 is_started = False
 
 def classify_loop():
@@ -21,17 +22,15 @@ def start():
     global cur_loop_thread, is_started
 
     is_started = True
-    
-    if(cur_loop_thread != None):
-        cur_loop_thread.join()
+
+    if cur_loop_thread != None:
+        return
         
-    cur_loop_thread = Thread(target=classify_loop)
+    cur_loop_thread = Thread(target=posture_checker)
     cur_loop_thread.start()
 
+    cur_loop_thread.join()
 
 def stop():
-    global is_started
-    is_started = False
-
-
-start()
+    global cur_loop_thread
+    cur_loop_thread = None

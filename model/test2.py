@@ -4,6 +4,7 @@ from time import sleep
 import cv2
 import numpy as np
 from classifier import is_bad_posture
+from loader import event
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
 
@@ -65,6 +66,8 @@ def posture_checker():
             print("Class:", class_name[2:], end="")
             print("Confidence Score:", confidence_score)
 
+            if event.isSet():
+                break
 
         except KeyboardInterrupt:
             cam.release()
