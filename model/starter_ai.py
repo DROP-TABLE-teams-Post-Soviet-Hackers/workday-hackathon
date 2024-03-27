@@ -1,5 +1,6 @@
 from threading import Thread
 from time import sleep
+import json
 
 import plyer
 from classifier import is_bad_posture, posture_checker
@@ -31,9 +32,16 @@ def classify_loop():
     try:
         while is_started:
             if is_bad_posture():
-                notif_with_plyer(
-                    title="Hello, your posture is bad now!", message="Improve it"
-                )
+                with open("config.json", "r") as f:
+                    data = json.load(f)
+                if data["type"] == 1:
+                    notif_with_plyer(
+                        title="Hello, your posture is bad now!", message="Improve it"
+                    )
+                else:
+                    notif_with_plyer(
+                        title="Hello, your posture is bad now!", message="Improve it"
+                    )
             else:
                 print("good")
             sleep(0.2)
