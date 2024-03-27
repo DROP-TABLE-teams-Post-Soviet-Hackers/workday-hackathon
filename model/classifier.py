@@ -1,9 +1,9 @@
 from time import sleep
 
 import cv2
+import numpy as np
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
-import numpy as np
 
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=True)
@@ -30,10 +30,10 @@ def is_bad_posture(logs=False):
     # if there is a problem with a camera
     if not result:
         return False
-    
+
     # show the image
     cv2.imshow("image", img_read)
-    
+
     # save the image
     cv2.imwrite("image.png", img_read)
 
@@ -61,11 +61,11 @@ def is_bad_posture(logs=False):
 
     predicted_classname = predicted_class[2:]
 
-    if(logs):
+    if logs:
         print("Class:", predicted_classname, end="")
         print("Confidence Score:", confidence_score)
 
-    if(prediction_index == 1):
+    if prediction_index == 1:
         return True
-    
+
     return False
