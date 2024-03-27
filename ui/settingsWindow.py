@@ -76,7 +76,7 @@ class Ui_SettingsWindow(object):
     def retranslateUi(self, SettingsWindow):
         _translate = QtCore.QCoreApplication.translate
         SettingsWindow.setWindowTitle(_translate("SettingsWindow", "Settings"))
-        self.label_2.setText(_translate("SettingsWindow", "Distance threshold:"))
+        self.label_2.setText(_translate("SettingsWindow", "Checks frequency:"))
         self.frequencyLabel.setText(_translate("SettingsWindow", "1000 ms"))
         self.label_3.setText(_translate("SettingsWindow", "Notification type:"))
         self.windowOption.setText(_translate("SettingsWindow", "window"))
