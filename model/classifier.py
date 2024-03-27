@@ -31,9 +31,6 @@ def is_bad_posture(logs=False):
     if not result:
         return False
     
-    # show the image
-    cv2.imshow("image", img_read)
-    
     # save the image
     cv2.imwrite("image.png", img_read)
 
