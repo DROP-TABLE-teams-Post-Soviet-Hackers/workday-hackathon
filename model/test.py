@@ -20,7 +20,7 @@ class_names = open("labels.txt", "r").readlines()
 data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
 # Replace this with the path to your image
-image = Image.open("image.png").convert("RGB")
+image = Image.open("bad.jpg").convert("RGB")
 
 # resizing the image to be at least 224x224 and then cropping from the center
 size = (224, 224)
@@ -47,4 +47,3 @@ confidence_score = prediction[0][index]
 print(class_name)
 print("Class:", class_name[2:], end="")
 print("Confidence Score:", confidence_score)
-
