@@ -1,4 +1,4 @@
-from time import sleep
+import threading
 
 import cv2
 from keras.models import load_model  # TensorFlow is required for Keras to work
@@ -69,3 +69,5 @@ def is_bad_posture(logs=False):
         return True
     
     return False
+
+
