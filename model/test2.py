@@ -1,8 +1,10 @@
+from threading import Thread
 from time import sleep
 
 import cv2
 import numpy as np
 from classifier import is_bad_posture
+from loader import event
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
 
@@ -49,7 +51,7 @@ def get_score(filename = "image.png"):
     return (class_name, confidence_score)
 
 
-def main():
+def posture_checker():
     filename = "image.png"
     while True:
         try:
@@ -64,6 +66,8 @@ def main():
             print("Class:", class_name[2:], end="")
             print("Confidence Score:", confidence_score)
 
+            if event.isSet():
+                break
 
         except KeyboardInterrupt:
             cam.release()
@@ -72,7 +76,7 @@ def main():
 
 
 if __name__=='__main__':
-    main()
+    posture_checker()
 
 # closing the windows that are opened
 cv2.destroyAllWindows()

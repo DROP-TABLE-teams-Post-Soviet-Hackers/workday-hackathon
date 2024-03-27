@@ -1,5 +1,3 @@
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import json
 
@@ -16,22 +14,22 @@ class MainDialog(QMainWindow, ui.settingsWindow.Ui_SettingsWindow):
         with open("config.json", "r") as f:
             data = json.load(f)
 
-        self.distanceSelector.setValue(data["distance"])
-        self.distanceLabel.setText(str(data["distance"]) + " cm")
+        self.frequencySelector.setValue(data["frequency"])
+        self.frequencyLabel.setText(str(data["frequency"]) + " ms")
         self.windowOption.setChecked(not bool(data["type"]))
         self.builtinOption.setChecked(bool(data["type"]))
 
-        self.distanceSelector.valueChanged.connect(self.updateDistance)
+        self.frequencySelector.valueChanged.connect(self.updateFrequency)
 
         self.saveBtn.clicked.connect(self.save)
         self.cancelBtn.clicked.connect(self.close)
 
-    def updateDistance(self):
-        self.distanceLabel.setText(str(self.distanceSelector.value()) + " cm")
+    def updateFrequency(self):
+        self.frequencyLabel.setText(str(self.frequencySelector.value()) + " ms")
 
     def save(self):
         configData = {
-            "distance": self.distanceSelector.value(),
+            "frequency": self.frequencySelector.value(),
             "type": 0 if self.windowOption.isChecked() else 1
         }
 

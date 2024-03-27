@@ -2,7 +2,7 @@ from threading import Thread
 from time import sleep
 
 import plyer
-from classifier import is_bad_posture
+from classifier import is_bad_posture, posture_checker
 
 cur_loop_thread = None
 is_started = False
@@ -47,6 +47,7 @@ def start():
     is_started = True
 
     if cur_loop_thread != None:
+
         cur_loop_thread.join()
 
     cur_loop_thread = Thread(target=classify_loop)

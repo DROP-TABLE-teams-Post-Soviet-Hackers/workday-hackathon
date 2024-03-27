@@ -2,14 +2,14 @@ config.json file format is the following:
 
 ```json
 {
-  "distance": 54,
+  "frequency": 54,
   "type": 1
 }
 ```
 
 ### Distance threshold
 
-"distance" value
+"frequency" value (in ms)
 
 ### Notification Types:
 
