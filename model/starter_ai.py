@@ -47,7 +47,9 @@ def classify_loop():
                     app.exec_()
         else:
             print("good")
-            sleep(0.2)
+            with open("config.json", "r") as f:
+                data = json.load(f)
+            sleep(data["frequency"] / 1000)
     except Exception as e:
         print("Error in classifying loop:", e)
 
