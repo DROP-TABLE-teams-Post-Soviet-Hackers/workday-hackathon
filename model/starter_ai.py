@@ -1,9 +1,14 @@
+import datetime
+import json
+import sys
 from threading import Thread
 from time import sleep
 
 import notifypy
-import plyer
 from classifier import is_bad_posture, posture_checker
+from loader import *
+from PyQt5.QtWidgets import *
+from sound import *
 
 cur_loop_thread = None
 is_started = False
@@ -30,40 +35,27 @@ def notif_with_notifpy(title: str, message: str):
     )  # block=False spawns a separate thread inorder not to block the main app thread
 
 
-'''def notif_with_plyer(title: str, message: str):
-    """
-    Sends a notification using the plyer engine.
-
-    Args:
-        title: str: the title of the notification
-        message: str: the message of the notification
-    Note:
-        Cross-Platform: could be used on any OS.
-    """
-
-    plyer.notification.notify(
-        app_name="H4ck P0stur3",
-        title=title,
-        message=message,
-        timeout=10,
-    )'''
-
-
 def classify_loop():
+    global is_bended, last_time_notification
     try:
         while is_started:
             if is_bad_posture():
-                """notif_with_plyer(
-                    title="Hello, your posture is bad now!", message="Improve it"
-                )"""
-                notif_with_notifpy(
-                    title="Hello, your posture is bad now!",
-                    message="Improve it",
-                )
-
+                cur_date = datetime.datetime.now()
+                if cur_date - last_time_notification > datetime.timedelta(seconds=8):
+                    last_time_notification = cur_date
+                    is_bended = True
+                    notif_with_notifpy(
+                        title="Hello, your posture is bad now!",
+                        message="Improve it",
+                    )
             else:
                 print("good")
-            sleep(0.2)
+                if is_bended:
+                    is_bended = False
+                with open("../config.json", "r") as f:
+                    data = json.load(f)
+                sleep(data["frequency"] / 1000)
+
     except Exception as e:
         print("Error in classifying loop:", e)
 
