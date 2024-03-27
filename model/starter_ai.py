@@ -32,3 +32,6 @@ def start():
 def stop():
     global is_started
     is_started = False
+
+
+start()
