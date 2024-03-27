@@ -3,32 +3,39 @@ import sys
 
 from classifier import is_bad_posture
 from PySide6 import QtCore, QtGui, QtWidgets
+from starter_ai import start, stop
 
 
 class MyWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.hello = ["Hack posture app"]
+        self.start_button = QtWidgets.QPushButton("Start")
+        self.start_button.setCheckable(True)
+        self.start_button.toggle()
+        self.start_button.clicked.connect(self.check_start_button)
 
-        self.button = QtWidgets.QPushButton("Check my posture!")
-        self.button.setCheckable(True)
-        self.button.toggle()
-        self.button.clicked.connect(self.check_button_state)
+        self.stop_button = QtWidgets.QPushButton("Stop")
+        self.stop_button.setCheckable(True)
+        self.stop_button.toggle()
+        self.stop_button.clicked.connect(self.check_stop_button)
 
         self.text = QtWidgets.QLabel(
-            "Hack posture app", alignment=QtCore.Qt.AlignCenter
+            "Check my posture!", alignment=QtCore.Qt.AlignCenter
         )
 
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.text)
-        self.layout.addWidget(self.button)
+        self.layout.addWidget(self.start_button)
+        self.layout.addWidget(self.stop_button)
 
-    def check_button_state(self):
-        if self.button.isChecked():
-            print("Button is pressed!")
-        else:
-            print("None")
+    def check_start_button(self) -> None:
+        if self.start_button.isChecked():
+            start()
+
+    def check_stop_button(self) -> None:
+        if self.stop_button.isChecked():
+            stop()
 
 
 if __name__ == "__main__":
