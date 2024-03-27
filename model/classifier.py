@@ -23,15 +23,13 @@ cam = cv2.VideoCapture(0)
 
 
 # return true if the current posture is bad
-#
-def is_bad_posture():
+# if logs = True, prints logs
+def is_bad_posture(logs=False):
     result, img_read = cam.read()
 
     # if there is a problem with a camera
     if not result:
         return False
-
-    print("here")
     
     # show the image
     cv2.imshow("image", img_read)
@@ -63,5 +61,11 @@ def is_bad_posture():
 
     predicted_classname = predicted_class[2:]
 
-    print("Class:", predicted_classname, end="")
-    print("Confidence Score:", confidence_score)
+    if(logs):
+        print("Class:", predicted_classname, end="")
+        print("Confidence Score:", confidence_score)
+
+    if(prediction_index == 1):
+        return True
+    
+    return False
